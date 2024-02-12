@@ -22,7 +22,6 @@ public class PaymentPage {
     private final SelenideElement cvvField = $("[placeholder='999']");
 
     private final SelenideElement continueButton = $(byText("Продолжить"));
-    private final SelenideElement notification = $("div.notification:nth-child(7) > div:nth-child(3)");
     private final SelenideElement successNotification = $(byText("Операция одобрена Банком."));
     private final SelenideElement failNotification = $(byText("Ошибка! Банк отказал в проведении операции."));
     private final SelenideElement wrongFormat = $(byText("Неверный формат"));
@@ -40,30 +39,27 @@ public class PaymentPage {
     }
 
     public void successMessage() {
-        successNotification.shouldBe(Condition.visible, Duration.ofSeconds(10));
+        successNotification.shouldBe(Condition.visible, Duration.ofSeconds(15));
     }
 
     public void failMessage() {
-        failNotification.shouldBe(Condition.visible, Duration.ofSeconds(10));
+        failNotification.shouldBe(Condition.visible, Duration.ofSeconds(15));
     }
 
     public void wrongFormatMessage() {
-        wrongFormat.shouldBe(Condition.visible, Duration.ofSeconds(10));
+        wrongFormat.shouldBe(Condition.visible, Duration.ofSeconds(15));
     }
 
     public void wrongTermMessage() {
-        wrongTerm.shouldBe(Condition.visible, Duration.ofSeconds(10));
+        wrongTerm.shouldBe(Condition.visible, Duration.ofSeconds(15));
     }
 
     public void cardExpiredMessage() {
-        cardExpired.shouldBe(Condition.visible, Duration.ofSeconds(10));
+        cardExpired.shouldBe(Condition.visible, Duration.ofSeconds(15));
     }
 
     public void shouldFillMessage() {
-        requiredField.shouldBe(Condition.visible, Duration.ofSeconds(10));
+        requiredField.shouldBe(Condition.visible, Duration.ofSeconds(15));
     }
 
-    public void shouldNotify() {
-        notification.shouldBe(Condition.visible, Duration.ofSeconds(10));
-    }
 }

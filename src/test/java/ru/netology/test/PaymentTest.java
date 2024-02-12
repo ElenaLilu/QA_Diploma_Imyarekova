@@ -35,10 +35,10 @@ public class PaymentTest {
     //Проверка карты со статусом APPROVED
     @Test
     void shouldPaymentWithApprovedCard() {
-        var startPage = new MainPage();
+        var mainPage = new MainPage();
         CardsInfo card = new CardsInfo(
                 getApprovedCardNumber(), getMonth(10), getYear(1), getHolder(), getCvv());
-        var paymentPage = startPage.payment();
+        var paymentPage = mainPage.payment();
         paymentPage.fillForm(card);
         paymentPage.successMessage();
         String actual = DbUtils.getStatusPayment();
@@ -48,10 +48,10 @@ public class PaymentTest {
     //Проверка карты со статусом DECLINED
     @Test
     void shouldPaymentWithDeclinedCard() {
-        var startPage = new MainPage();
+        var mainPage = new MainPage();
         CardsInfo card = new CardsInfo(
                 getDeclinedCardNumber(), getMonth(0), getYear(1), getHolder(), getCvv());
-        var paymentPage = startPage.payment();
+        var paymentPage = mainPage.payment();
         paymentPage.fillForm(card);
         paymentPage.failMessage();
         String actual = DbUtils.getStatusPayment();
@@ -61,10 +61,10 @@ public class PaymentTest {
     //Проверка карты с несуществующим номером
     @Test
     void shouldPaymentWithInvalidCardNumber() {
-        var startPage = new MainPage();
+        var mainPage = new MainPage();
         CardsInfo card = new CardsInfo(
                 getInvalidCardNumber(), getMonth(10), getYear(1), getHolder(), getCvv());
-        var paymentPage = startPage.payment();
+        var paymentPage = mainPage.payment();
         paymentPage.fillForm(card);
         paymentPage.failMessage();
     }
@@ -72,10 +72,10 @@ public class PaymentTest {
     //Проверка карты, состоящей из 12 цифр
     @Test
     void shouldPaymentWithInvalidCardNumberShort() {
-        var startPage = new MainPage();
+        var mainPage = new MainPage();
         CardsInfo card = new CardsInfo(
                 getInvalidShortCardNumber(), getMonth(10), getYear(1), getHolder(), getCvv());
-        var paymentPage = startPage.payment();
+        var paymentPage = mainPage.payment();
         paymentPage.fillForm(card);
         paymentPage.wrongFormatMessage();
     }
@@ -83,10 +83,10 @@ public class PaymentTest {
     //Проверка карты, номер которой состоит из букв
     @Test
     void shouldPaymentWithInvalidCardNumberOfLetters() {
-        var startPage = new MainPage();
+        var mainPage = new MainPage();
         CardsInfo card = new CardsInfo(
                 getCardNumberWithLetters(), getMonth(10), getYear(1), getHolder(), getCvv());
-        var paymentPage = startPage.payment();
+        var paymentPage = mainPage.payment();
         paymentPage.fillForm(card);
         paymentPage.wrongFormatMessage();
     }
@@ -94,10 +94,10 @@ public class PaymentTest {
     //Проверка поля карты с пустым значением
     @Test
     void shouldPaymentEmptyField() {
-        var startPage = new MainPage();
+        var mainPage = new MainPage();
         CardsInfo card = new CardsInfo(
                 null, getMonth(10), getYear(1), getHolder(), getCvv());
-        var paymentPage = startPage.payment();
+        var paymentPage = mainPage.payment();
         paymentPage.fillForm(card);
         paymentPage.shouldFillMessage();
     }
@@ -105,10 +105,10 @@ public class PaymentTest {
     //Оплата картой, срок окончания которой - год, предшесвующий текущему
     @Test
     void shouldPaymentExpiredCard() {
-        var startPage = new MainPage();
+        var mainPage = new MainPage();
         CardsInfo card = new CardsInfo(
                 getApprovedCardNumber(), getMonth(0), getYear(-1), getHolder(), getCvv());
-        var paymentPage = startPage.payment();
+        var paymentPage = mainPage.payment();
         paymentPage.fillForm(card);
         paymentPage.cardExpiredMessage();
     }
@@ -116,10 +116,10 @@ public class PaymentTest {
     //Оплата картой, срок окончания которой более, чем через 5 лет относительно текущего года
     @Test
     void shouldPaymentCardExpirationPlusFiveYears() {
-        var startPage = new MainPage();
+        var mainPage = new MainPage();
         CardsInfo card = new CardsInfo(
                 getApprovedCardNumber(), getMonth(0), getYear(6), getHolder(), getCvv());
-        var paymentPage = startPage.payment();
+        var paymentPage = mainPage.payment();
         paymentPage.fillForm(card);
         paymentPage.wrongTermMessage();
     }
@@ -127,10 +127,10 @@ public class PaymentTest {
     //Оплата картой, где срок окончания указан буквами
     @Test
     void shouldPaymentCardYearIndicatedLetters() {
-        var startPage = new MainPage();
+        var mainPage = new MainPage();
         CardsInfo card = new CardsInfo(
                 getApprovedCardNumber(), getMonth(10), getInvalidYear(), getHolder(), getCvv());
-        var paymentPage = startPage.payment();
+        var paymentPage = mainPage.payment();
         paymentPage.fillForm(card);
         paymentPage.wrongTermMessage();
     }
@@ -138,10 +138,10 @@ public class PaymentTest {
     //Оплата картой, где год срока окончания не указан
     @Test
     void shouldPaymentCardWithEmptyYear() {
-        var startPage = new MainPage();
+        var mainPage = new MainPage();
         CardsInfo card = new CardsInfo(
                 getApprovedCardNumber(), getMonth(10), null, getHolder(), getCvv());
-        var paymentPage = startPage.payment();
+        var paymentPage = mainPage.payment();
         paymentPage.fillForm(card);
         paymentPage.shouldFillMessage();
     }
@@ -149,10 +149,10 @@ public class PaymentTest {
     //Оплата картой, у которой месяц превышает 12
     @Test
     void shouldPaymentIncorrectCardExpirationDate() {
-        var startPage = new MainPage();
+        var mainPage = new MainPage();
         CardsInfo card = new CardsInfo(
                 getApprovedCardNumber(), getInvalidMonthInvalidPeriod(), getYear(1), getHolder(), getCvv());
-        var paymentPage = startPage.payment();
+        var paymentPage = mainPage.payment();
         paymentPage.fillForm(card);
         paymentPage.wrongTermMessage();
     }
@@ -160,10 +160,10 @@ public class PaymentTest {
     //Оплата картой, месяц которой указан: 00
     @Test
     void shouldPaymentCardInvalidMonth() {
-        var startPage = new MainPage();
+        var mainPage = new MainPage();
         CardsInfo card = new CardsInfo(
                 getApprovedCardNumber(), getInvalidMonth(), getYear(1), getHolder(), getCvv());
-        var paymentPage = startPage.payment();
+        var paymentPage = mainPage.payment();
         paymentPage.fillForm(card);
         paymentPage.wrongTermMessage();
     }
@@ -171,10 +171,10 @@ public class PaymentTest {
     //Оплата картой, месяц которой указан буквами
     @Test
     void shouldPaymentCardMonthWithLetters() {
-        var startPage = new MainPage();
+        var mainPage = new MainPage();
         CardsInfo card = new CardsInfo(
                 getApprovedCardNumber(), getInvalidMonth2(), getYear(1), getHolder(), getCvv());
-        var paymentPage = startPage.payment();
+        var paymentPage = mainPage.payment();
         paymentPage.fillForm(card);
         paymentPage.wrongTermMessage();
     }
@@ -182,10 +182,10 @@ public class PaymentTest {
     //Оплата картой, где поле месяца не заполнено
     @Test
     void shouldPaymentEmptyFieldMonth() {
-        var startPage = new MainPage();
+        var mainPage = new MainPage();
         CardsInfo card = new CardsInfo(
                 getApprovedCardNumber(), null, getYear(1), getHolder(), getCvv());
-        var paymentPage = startPage.payment();
+        var paymentPage = mainPage.payment();
         paymentPage.fillForm(card);
         paymentPage.shouldFillMessage();
     }
@@ -194,10 +194,10 @@ public class PaymentTest {
     //Невалидные данные о владельце: имя и фамилия на кириллице
     @Test
     void shouldPaymentInvalidHolderCard() {
-        var startPage = new MainPage();
+        var mainPage = new MainPage();
         CardsInfo card = new CardsInfo(
                 getApprovedCardNumber(), getMonth(10), getYear(1), getInvalidHolderCardCyrillic(), getCvv());
-        var paymentPage = startPage.payment();
+        var paymentPage = mainPage.payment();
         paymentPage.fillForm(card);
         paymentPage.wrongTermMessage();
     }
@@ -205,10 +205,10 @@ public class PaymentTest {
     //Невалидные данные о владельце: цифры в имени
     @Test
     void shouldPaymentInvalidHolderCardWithNumbers() {
-        var startPage = new MainPage();
+        var mainPage = new MainPage();
         CardsInfo card = new CardsInfo(
                 getApprovedCardNumber(), getMonth(10), getYear(1), getInvalidHolderCardWithNumbers(), getCvv());
-        var paymentPage = startPage.payment();
+        var paymentPage = mainPage.payment();
         paymentPage.fillForm(card);
         paymentPage.wrongTermMessage();
     }
@@ -216,10 +216,10 @@ public class PaymentTest {
     //Невалидные данные о владельце: введена только одна буква
     @Test
     void shouldPaymentInvalidHolderCardWithOneLetter() {
-        var startPage = new MainPage();
+        var mainPage = new MainPage();
         CardsInfo card = new CardsInfo(
                 getApprovedCardNumber(), getMonth(10), getYear(1), getInvalidHolderCardOneLetterName(), getCvv());
-        var paymentPage = startPage.payment();
+        var paymentPage = mainPage.payment();
         paymentPage.fillForm(card);
         paymentPage.wrongTermMessage();
     }
@@ -227,10 +227,10 @@ public class PaymentTest {
     //Невалидные данные о владельце: пустое поле
     @Test
     void shouldPaymentEmptyHolder() {
-        var startPage = new MainPage();
+        var mainPage = new MainPage();
         CardsInfo card = new CardsInfo(
                 getApprovedCardNumber(), getMonth(10), getYear(1), null, getCvv());
-        var paymentPage = startPage.payment();
+        var paymentPage = mainPage.payment();
         paymentPage.fillForm(card);
         paymentPage.shouldFillMessage();
     }
@@ -239,10 +239,10 @@ public class PaymentTest {
     //Невалидный код CVV: ввод двух цифр
     @Test
     void shouldPaymentCardInvalidCvv() {
-        var startPage = new MainPage();
+        var mainPage = new MainPage();
         CardsInfo card = new CardsInfo(
                 getApprovedCardNumber(), getMonth(10), getYear(1), getHolder(), getInvalidCvv());
-        var paymentPage = startPage.payment();
+        var paymentPage = mainPage.payment();
         paymentPage.fillForm(card);
         paymentPage.wrongTermMessage();
     }
@@ -250,10 +250,10 @@ public class PaymentTest {
     //Невалидный код CVV: ввод одной цифры
     @Test
     void shouldPaymentCardInvalidCvv2() {
-        var startPage = new MainPage();
+        var mainPage = new MainPage();
         CardsInfo card = new CardsInfo(
                 getApprovedCardNumber(), getMonth(10), getYear(1), getHolder(), getInvalidCvv2());
-        var paymentPage = startPage.payment();
+        var paymentPage = mainPage.payment();
         paymentPage.fillForm(card);
         paymentPage.wrongTermMessage();
     }
@@ -261,10 +261,10 @@ public class PaymentTest {
     //Невалидный код CVV: ввод трёх нулей
     @Test
     void shouldPaymentCardInvalidCvvZero() {
-        var startPage = new MainPage();
+        var mainPage = new MainPage();
         CardsInfo card = new CardsInfo(
                 getApprovedCardNumber(), getMonth(10), getYear(1), getHolder(), getInvalidCvvZero());
-        var paymentPage = startPage.payment();
+        var paymentPage = mainPage.payment();
         paymentPage.fillForm(card);
         paymentPage.wrongTermMessage();
     }
@@ -272,10 +272,10 @@ public class PaymentTest {
     //Невалидный код CVV: пустое поле
     @Test
     void shouldPaymentCardInvalidEmptyCvv() {
-        var startPage = new MainPage();
+        var mainPage = new MainPage();
         CardsInfo card = new CardsInfo(
                 getApprovedCardNumber(), getMonth(10), getYear(1), getHolder(), null);
-        var paymentPage = startPage.payment();
+        var paymentPage = mainPage.payment();
         paymentPage.fillForm(card);
         paymentPage.shouldFillMessage();
     }
@@ -283,10 +283,10 @@ public class PaymentTest {
     //Отправка пустой формы покупки тура картой
     @Test
     void shouldPaymentEmptyAllField() {
-        var startPage = new MainPage();
+        var mainPage = new MainPage();
         CardsInfo card = new CardsInfo(
                 null, null, null, null, null);
-        var paymentPage = startPage.payment();
+        var paymentPage = mainPage.payment();
         paymentPage.fillForm(card);
         paymentPage.shouldFillMessage();
     }

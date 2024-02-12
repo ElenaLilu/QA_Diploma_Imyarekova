@@ -1,16 +1,19 @@
 package ru.netology.page;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import ru.netology.data.CardsInfo;
 
 import java.time.Duration;
 
+import static com.codeborne.selenide.Condition.exactText;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 public class CreditPage {
+
+    private SelenideElement headingCredit = $$("h3.heading").find(exactText("Кредит по данным карты"));
     private SelenideElement numberField = $("[placeholder='0000 0000 0000 0000']");
     private SelenideElement monthField = $("[placeholder='08']");
     private SelenideElement yearField = $("[placeholder='22']");
@@ -25,6 +28,9 @@ public class CreditPage {
     private SelenideElement cardExpired = $(withText("Истёк срок действия карты"));
     private SelenideElement requiredField = $(withText("Поле обязательно для заполнения"));
 
+    public CreditPage() {
+        headingCredit.shouldBe(visible);
+    }
     public void fillForm(CardsInfo info) {
         numberField.setValue(info.getNumber());
         monthField.setValue(info.getMonth());
@@ -35,26 +41,26 @@ public class CreditPage {
     }
 
     public void successMessage() {
-        successNotification.shouldBe(Condition.visible, Duration.ofSeconds(15));
+        successNotification.shouldBe(visible, Duration.ofSeconds(15));
     }
 
     public void failMessage() {
-        failNotification.shouldBe(Condition.visible, Duration.ofSeconds(15));
+        failNotification.shouldBe(visible, Duration.ofSeconds(15));
     }
 
     public void wrongFormatMessage() {
-        wrongFormat.shouldBe(Condition.visible, Duration.ofSeconds(15));
+        wrongFormat.shouldBe(visible, Duration.ofSeconds(15));
     }
 
     public void wrongTermMessage() {
-        wrongTerm.shouldBe(Condition.visible, Duration.ofSeconds(15));
+        wrongTerm.shouldBe(visible, Duration.ofSeconds(15));
     }
 
     public void cardExpiredMessage() {
-        cardExpired.shouldBe(Condition.visible, Duration.ofSeconds(15));
+        cardExpired.shouldBe(visible, Duration.ofSeconds(15));
     }
 
     public void shouldFillMessage() {
-        requiredField.shouldBe(Condition.visible, Duration.ofSeconds(15));
+        requiredField.shouldBe(visible, Duration.ofSeconds(15));
     }
 }

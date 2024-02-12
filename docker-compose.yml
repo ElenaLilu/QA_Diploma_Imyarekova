@@ -23,8 +23,6 @@ services:
     container_name: mysql-container
     ports:
       - '3306:3306'
-    volumes:
-      - ./data_mysql:/var/lib/mysql
     environment:
       - MYSQL_RANDOM_ROOT_PASSWORD=yes
       - MYSQL_DATABASE=app

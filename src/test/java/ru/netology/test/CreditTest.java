@@ -39,11 +39,11 @@ public class CreditTest {
             void shouldCreditWithApprovedCard() throws SQLException {
             var mainPage = new MainPage();
             CardsInfo card = new CardsInfo(
-                    getApprovedCardNumber(), getMonth(10), getYear(1), getHolder(), getCvv());
+                    getApprovedCardNumber(), getMonth(7), getYear(1), getHolder(), getCvv());
             var creditPage = mainPage.paymentOnCredit();
             creditPage.fillForm(card);
             creditPage.successMessage();
-            String actual = DbUtils.getStatusPayment();
+            String actual = DbUtils.getStatusCredit();
             assertEquals("APPROVED", actual);
         }
 
@@ -56,7 +56,7 @@ public class CreditTest {
             var creditPage = mainPage.paymentOnCredit();
             creditPage.fillForm(card);
             creditPage.failMessage();
-            String actual = DbUtils.getStatusPayment();
+            String actual = DbUtils.getStatusCredit();
             assertEquals("DECLINED", actual);
         }
 
@@ -65,7 +65,7 @@ public class CreditTest {
         void shouldPaymentWithInvalidCardNumber() throws SQLException {
             var mainPage = new MainPage();
             CardsInfo card = new CardsInfo(
-                    getInvalidCardNumber(), getMonth(10), getYear(1), getHolder(), getCvv());
+                    getInvalidCardNumber(), getMonth(7), getYear(1), getHolder(), getCvv());
             var creditPage = mainPage.paymentOnCredit();
             creditPage.fillForm(card);
             creditPage.failMessage();
@@ -76,7 +76,7 @@ public class CreditTest {
         void shouldPaymentWithInvalidCardNumberShort() throws SQLException {
             var mainPage = new MainPage();
             CardsInfo card = new CardsInfo(
-                    getInvalidShortCardNumber(), getMonth(10), getYear(1), getHolder(), getCvv());
+                    getInvalidShortCardNumber(), getMonth(7), getYear(1), getHolder(), getCvv());
             var creditPage = mainPage.paymentOnCredit();
             creditPage.fillForm(card);
             creditPage.wrongFormatMessage();
@@ -87,7 +87,7 @@ public class CreditTest {
         void shouldPaymentWithInvalidCardNumberOfLetters() throws SQLException {
             var mainPage = new MainPage();
             CardsInfo card = new CardsInfo(
-                    getCardNumberWithLetters(), getMonth(10), getYear(1), getHolder(), getCvv());
+                    getCardNumberWithLetters(), getMonth(7), getYear(1), getHolder(), getCvv());
             var creditPage = mainPage.paymentOnCredit();
             creditPage.fillForm(card);
             creditPage.wrongFormatMessage();
@@ -98,7 +98,7 @@ public class CreditTest {
         void shouldPaymentEmptyField() throws SQLException {
             var mainPage = new MainPage();
             CardsInfo card = new CardsInfo(
-                    null, getMonth(10), getYear(1), getHolder(), getCvv());
+                    null, getMonth(7), getYear(1), getHolder(), getCvv());
             var creditPage = mainPage.paymentOnCredit();
             creditPage.fillForm(card);
             creditPage.shouldFillMessage();
@@ -131,10 +131,10 @@ public class CreditTest {
         void shouldPaymentCardYearIndicatedLetters() throws SQLException {
             var mainPage = new MainPage();
             CardsInfo card = new CardsInfo(
-                    getApprovedCardNumber(), getMonth(10), getInvalidYear(), getHolder(), getCvv());
+                    getApprovedCardNumber(), getMonth(7), getInvalidYear(), getHolder(), getCvv());
             var creditPage = mainPage.paymentOnCredit();
             creditPage.fillForm(card);
-            creditPage.wrongTermMessage();
+            creditPage.wrongFormatMessage();
         }
 
         //Оплата картой, где год срока окончания не указан
@@ -142,10 +142,10 @@ public class CreditTest {
         void shouldPaymentCardWithEmptyYear() throws SQLException {
             var mainPage = new MainPage();
             CardsInfo card = new CardsInfo(
-                    getApprovedCardNumber(), getMonth(10), null, getHolder(), getCvv());
+                    getApprovedCardNumber(), getMonth(7), null, getHolder(), getCvv());
             var creditPage = mainPage.paymentOnCredit();
             creditPage.fillForm(card);
-            creditPage.shouldFillMessage();
+            creditPage.wrongFormatMessage();
         }
 
         //Оплата картой, у которой месяц превышает 12
@@ -178,7 +178,7 @@ public class CreditTest {
                     getApprovedCardNumber(), getInvalidMonth2(), getYear(1), getHolder(), getCvv());
             var creditPage = mainPage.paymentOnCredit();
             creditPage.fillForm(card);
-            creditPage.wrongTermMessage();
+            creditPage.wrongFormatMessage();
         }
 
         //Оплата картой, где поле месяца не заполнено
@@ -198,10 +198,10 @@ public class CreditTest {
         void shouldPaymentInvalidHolderCard() throws SQLException {
             var mainPage = new MainPage();
             CardsInfo card = new CardsInfo(
-                    getApprovedCardNumber(), getMonth(10), getYear(1), getInvalidHolderCardCyrillic(), getCvv());
+                    getApprovedCardNumber(), getMonth(7), getYear(1), getInvalidHolderCardCyrillic(), getCvv());
             var creditPage = mainPage.paymentOnCredit();
             creditPage.fillForm(card);
-            creditPage.wrongTermMessage();
+            creditPage.wrongFormatMessage();
         }
 
         //Невалидные данные о владельце: цифры в имени
@@ -209,10 +209,10 @@ public class CreditTest {
         void shouldPaymentInvalidHolderCardWithNumbers() throws SQLException {
             var mainPage = new MainPage();
             CardsInfo card = new CardsInfo(
-                    getApprovedCardNumber(), getMonth(10), getYear(1), getInvalidHolderCardWithNumbers(), getCvv());
+                    getApprovedCardNumber(), getMonth(7), getYear(1), getInvalidHolderCardWithNumbers(), getCvv());
             var creditPage = mainPage.paymentOnCredit();
             creditPage.fillForm(card);
-            creditPage.wrongTermMessage();
+            creditPage.wrongFormatMessage();
         }
 
         //Невалидные данные о владельце: введена только одна буква
@@ -220,10 +220,10 @@ public class CreditTest {
         void shouldPaymentInvalidHolderCardWithOneLetter() throws SQLException {
             var mainPage = new MainPage();
             CardsInfo card = new CardsInfo(
-                    getApprovedCardNumber(), getMonth(10), getYear(1), getInvalidHolderCardOneLetterName(), getCvv());
+                    getApprovedCardNumber(), getMonth(7), getYear(1), getInvalidHolderCardOneLetterName(), getCvv());
             var creditPage = mainPage.paymentOnCredit();
             creditPage.fillForm(card);
-            creditPage.wrongTermMessage();
+            creditPage.wrongFormatMessage();
         }
 
         //Невалидные данные о владельце: пустое поле
@@ -231,7 +231,7 @@ public class CreditTest {
         void shouldPaymentEmptyHolder() throws SQLException {
             var mainPage = new MainPage();
             CardsInfo card = new CardsInfo(
-                    getApprovedCardNumber(), getMonth(10), getYear(1), null, getCvv());
+                    getApprovedCardNumber(), getMonth(7), getYear(1), null, getCvv());
             var creditPage = mainPage.paymentOnCredit();
             creditPage.fillForm(card);
             creditPage.shouldFillMessage();
@@ -243,10 +243,10 @@ public class CreditTest {
         void shouldPaymentCardInvalidCvv() throws SQLException {
             var mainPage = new MainPage();
             CardsInfo card = new CardsInfo(
-                    getApprovedCardNumber(), getMonth(10), getYear(1), getHolder(), getInvalidCvv());
+                    getApprovedCardNumber(), getMonth(7), getYear(1), getHolder(), getInvalidCvv());
             var creditPage = mainPage.paymentOnCredit();
             creditPage.fillForm(card);
-            creditPage.wrongTermMessage();
+            creditPage.wrongFormatMessage();
         }
 
         //Невалидный код CVV: ввод одной цифры
@@ -254,10 +254,10 @@ public class CreditTest {
         void shouldPaymentCardInvalidCvv2() throws SQLException {
             var mainPage = new MainPage();
             CardsInfo card = new CardsInfo(
-                    getApprovedCardNumber(), getMonth(10), getYear(1), getHolder(), getInvalidCvv2());
+                    getApprovedCardNumber(), getMonth(7), getYear(1), getHolder(), getInvalidCvv2());
             var creditPage = mainPage.paymentOnCredit();
             creditPage.fillForm(card);
-            creditPage.wrongTermMessage();
+            creditPage.wrongFormatMessage();
         }
 
         //Невалидный код CVV: ввод трёх нулей
@@ -265,10 +265,10 @@ public class CreditTest {
         void shouldPaymentCardInvalidCvvZero() throws SQLException {
             var mainPage = new MainPage();
             CardsInfo card = new CardsInfo(
-                    getApprovedCardNumber(), getMonth(10), getYear(1), getHolder(), getInvalidCvvZero());
+                    getApprovedCardNumber(), getMonth(7), getYear(1), getHolder(), getInvalidCvvZero());
             var creditPage = mainPage.paymentOnCredit();
             creditPage.fillForm(card);
-            creditPage.wrongTermMessage();
+            creditPage.wrongFormatMessage();
         }
 
         //Невалидный код CVV: пустое поле
@@ -276,7 +276,7 @@ public class CreditTest {
         void shouldPaymentCardInvalidEmptyCvv() throws SQLException {
             var mainPage = new MainPage();
             CardsInfo card = new CardsInfo(
-                    getApprovedCardNumber(), getMonth(10), getYear(1), getHolder(), null);
+                    getApprovedCardNumber(), getMonth(7), getYear(1), getHolder(), null);
             var creditPage = mainPage.paymentOnCredit();
             creditPage.fillForm(card);
             creditPage.shouldFillMessage();
@@ -290,6 +290,6 @@ public class CreditTest {
                     null, null, null, null, null);
             var creditPage = mainPage.paymentOnCredit();
             creditPage.fillForm(card);
-            creditPage.shouldFillMessage();
+            creditPage.wrongFormatMessage();
         }
 }

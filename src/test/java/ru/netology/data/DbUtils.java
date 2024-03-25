@@ -7,9 +7,9 @@ import org.apache.commons.dbutils.handlers.ScalarHandler;
 import java.sql.DriverManager;
 import java.sql.Connection;
 public class DbUtils {
-    private static String url = "jdbc:mysql://localhost:3306/app?allowPublicKeyRetrieval=true&serverTimezone=Europe/Moscow&useSSL=false";
-    private static String user = "sqluser";
-    private static String password = "1234";
+    private static String url = System.getProperty("datasource.url");
+    private static String user = "app"; // что за странные данные?
+    private static String password = "pass";
 
     @SneakyThrows
     public static String getStatus(String status) {

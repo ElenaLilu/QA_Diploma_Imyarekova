@@ -28,7 +28,7 @@ repositories {
 
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
-    testImplementation 'com.codeborne:selenide:6.12.3'
+    testImplementation 'com.codeborne:selenide:6.17.1'
     testImplementation 'mysql:mysql-connector-java:8.0.33'
     testImplementation 'postgresql:postgresql:9.3-1102.jdbc41'
     testImplementation 'commons-dbutils:commons-dbutils:1.7'
@@ -38,20 +38,21 @@ dependencies {
 }
 
 
-test {
-    useJUnitPlatform()
-    systemProperty 'selenide.headless', System.getProperty('selenide.headless')
-    systemProperty 'db.url', System.getProperty('db.url')
-    systemProperty 'db.user', System.getProperty('db.user', "app")
-    systemProperty 'db.password', System.getProperty('db.password', "pass")
-    systemProperty 'sut.url', System.getProperty('sut.url', "http://localhost:8080/")
-
-}
+//test {
+//    useJUnitPlatform()
+//    systemProperty 'selenide.headless', System.getProperty('selenide.headless')
+//    systemProperty 'db.url', System.getProperty('db.url')
+//    systemProperty 'db.user', System.getProperty('db.user', "app")
+//    systemProperty 'db.password', System.getProperty('db.password', "pass")
+//    systemProperty 'sut.url', System.getProperty('sut.url', "http://localhost:8080/")
+//
+//}
 
 configurations {
     testCompile
 }
 
+// здесь для чего второй блок test?
 test {
     useJUnitPlatform()
     systemProperty 'selenide.headless', System.getProperty('selenide.headless')

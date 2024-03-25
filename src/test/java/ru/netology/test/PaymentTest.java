@@ -3,7 +3,10 @@ package ru.netology.test;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.Feature;
 import io.qameta.allure.selenide.AllureSelenide;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import ru.netology.data.CardsInfo;
 import ru.netology.data.DbUtils;
 import ru.netology.page.MainPage;
@@ -37,7 +40,7 @@ public class PaymentTest {
     void shouldPaymentWithApprovedCard() {
         var mainPage = new MainPage();
         CardsInfo card = new CardsInfo(
-                getApprovedCardNumber(), getMonth(10), getYear(1), getHolder(), getCvv());
+                getApprovedCardNumber(), getMonth(7), getYear(1), getHolder(), getCvv());
         var paymentPage = mainPage.payment();
         paymentPage.fillForm(card);
         paymentPage.successMessage();
@@ -50,7 +53,7 @@ public class PaymentTest {
     void shouldPaymentWithDeclinedCard() {
         var mainPage = new MainPage();
         CardsInfo card = new CardsInfo(
-                getDeclinedCardNumber(), getMonth(0), getYear(1), getHolder(), getCvv());
+                getDeclinedCardNumber(), getMonth(7), getYear(1), getHolder(), getCvv());
         var paymentPage = mainPage.payment();
         paymentPage.fillForm(card);
         paymentPage.failMessage();
@@ -63,7 +66,7 @@ public class PaymentTest {
     void shouldPaymentWithInvalidCardNumber() {
         var mainPage = new MainPage();
         CardsInfo card = new CardsInfo(
-                getInvalidCardNumber(), getMonth(10), getYear(1), getHolder(), getCvv());
+                getInvalidCardNumber(), getMonth(7), getYear(1), getHolder(), getCvv());
         var paymentPage = mainPage.payment();
         paymentPage.fillForm(card);
         paymentPage.failMessage();
@@ -74,7 +77,7 @@ public class PaymentTest {
     void shouldPaymentWithInvalidCardNumberShort() {
         var mainPage = new MainPage();
         CardsInfo card = new CardsInfo(
-                getInvalidShortCardNumber(), getMonth(10), getYear(1), getHolder(), getCvv());
+                getInvalidShortCardNumber(), getMonth(7), getYear(1), getHolder(), getCvv());
         var paymentPage = mainPage.payment();
         paymentPage.fillForm(card);
         paymentPage.wrongFormatMessage();
@@ -85,7 +88,7 @@ public class PaymentTest {
     void shouldPaymentWithInvalidCardNumberOfLetters() {
         var mainPage = new MainPage();
         CardsInfo card = new CardsInfo(
-                getCardNumberWithLetters(), getMonth(10), getYear(1), getHolder(), getCvv());
+                getCardNumberWithLetters(), getMonth(7), getYear(1), getHolder(), getCvv());
         var paymentPage = mainPage.payment();
         paymentPage.fillForm(card);
         paymentPage.wrongFormatMessage();
@@ -96,10 +99,10 @@ public class PaymentTest {
     void shouldPaymentEmptyField() {
         var mainPage = new MainPage();
         CardsInfo card = new CardsInfo(
-                null, getMonth(10), getYear(1), getHolder(), getCvv());
+                null, getMonth(7), getYear(1), getHolder(), getCvv());
         var paymentPage = mainPage.payment();
         paymentPage.fillForm(card);
-        paymentPage.shouldFillMessage();
+        paymentPage.wrongFormatMessage();
     }
 
     //Оплата картой, срок окончания которой - год, предшесвующий текущему
@@ -129,7 +132,7 @@ public class PaymentTest {
     void shouldPaymentCardYearIndicatedLetters() {
         var mainPage = new MainPage();
         CardsInfo card = new CardsInfo(
-                getApprovedCardNumber(), getMonth(10), getInvalidYear(), getHolder(), getCvv());
+                getApprovedCardNumber(), getMonth(7), getInvalidYear(), getHolder(), getCvv());
         var paymentPage = mainPage.payment();
         paymentPage.fillForm(card);
         paymentPage.wrongTermMessage();
@@ -140,10 +143,10 @@ public class PaymentTest {
     void shouldPaymentCardWithEmptyYear() {
         var mainPage = new MainPage();
         CardsInfo card = new CardsInfo(
-                getApprovedCardNumber(), getMonth(10), null, getHolder(), getCvv());
+                getApprovedCardNumber(), getMonth(7), null, getHolder(), getCvv());
         var paymentPage = mainPage.payment();
         paymentPage.fillForm(card);
-        paymentPage.shouldFillMessage();
+        paymentPage.wrongFormatMessage();
     }
 
     //Оплата картой, у которой месяц превышает 12
@@ -176,7 +179,7 @@ public class PaymentTest {
                 getApprovedCardNumber(), getInvalidMonth2(), getYear(1), getHolder(), getCvv());
         var paymentPage = mainPage.payment();
         paymentPage.fillForm(card);
-        paymentPage.wrongTermMessage();
+        paymentPage.wrongFormatMessage();
     }
 
     //Оплата картой, где поле месяца не заполнено
@@ -187,7 +190,7 @@ public class PaymentTest {
                 getApprovedCardNumber(), null, getYear(1), getHolder(), getCvv());
         var paymentPage = mainPage.payment();
         paymentPage.fillForm(card);
-        paymentPage.shouldFillMessage();
+        paymentPage.wrongFormatMessage();
     }
 
 
@@ -196,10 +199,10 @@ public class PaymentTest {
     void shouldPaymentInvalidHolderCard() {
         var mainPage = new MainPage();
         CardsInfo card = new CardsInfo(
-                getApprovedCardNumber(), getMonth(10), getYear(1), getInvalidHolderCardCyrillic(), getCvv());
+                getApprovedCardNumber(), getMonth(7), getYear(1), getInvalidHolderCardCyrillic(), getCvv());
         var paymentPage = mainPage.payment();
         paymentPage.fillForm(card);
-        paymentPage.wrongTermMessage();
+        paymentPage.wrongFormatMessage();
     }
 
     //Невалидные данные о владельце: цифры в имени
@@ -207,10 +210,10 @@ public class PaymentTest {
     void shouldPaymentInvalidHolderCardWithNumbers() {
         var mainPage = new MainPage();
         CardsInfo card = new CardsInfo(
-                getApprovedCardNumber(), getMonth(10), getYear(1), getInvalidHolderCardWithNumbers(), getCvv());
+                getApprovedCardNumber(), getMonth(7), getYear(1), getInvalidHolderCardWithNumbers(), getCvv());
         var paymentPage = mainPage.payment();
         paymentPage.fillForm(card);
-        paymentPage.wrongTermMessage();
+        paymentPage.wrongFormatMessage();
     }
 
     //Невалидные данные о владельце: введена только одна буква
@@ -218,10 +221,10 @@ public class PaymentTest {
     void shouldPaymentInvalidHolderCardWithOneLetter() {
         var mainPage = new MainPage();
         CardsInfo card = new CardsInfo(
-                getApprovedCardNumber(), getMonth(10), getYear(1), getInvalidHolderCardOneLetterName(), getCvv());
+                getApprovedCardNumber(), getMonth(7), getYear(1), getInvalidHolderCardOneLetterName(), getCvv());
         var paymentPage = mainPage.payment();
         paymentPage.fillForm(card);
-        paymentPage.wrongTermMessage();
+        paymentPage.wrongFormatMessage();
     }
 
     //Невалидные данные о владельце: пустое поле
@@ -229,10 +232,10 @@ public class PaymentTest {
     void shouldPaymentEmptyHolder() {
         var mainPage = new MainPage();
         CardsInfo card = new CardsInfo(
-                getApprovedCardNumber(), getMonth(10), getYear(1), null, getCvv());
+                getApprovedCardNumber(), getMonth(7), getYear(1), null, getCvv());
         var paymentPage = mainPage.payment();
         paymentPage.fillForm(card);
-        paymentPage.shouldFillMessage();
+        paymentPage.wrongFormatMessage();
     }
 
 
@@ -241,10 +244,10 @@ public class PaymentTest {
     void shouldPaymentCardInvalidCvv() {
         var mainPage = new MainPage();
         CardsInfo card = new CardsInfo(
-                getApprovedCardNumber(), getMonth(10), getYear(1), getHolder(), getInvalidCvv());
+                getApprovedCardNumber(), getMonth(7), getYear(1), getHolder(), getInvalidCvv());
         var paymentPage = mainPage.payment();
         paymentPage.fillForm(card);
-        paymentPage.wrongTermMessage();
+        paymentPage.wrongFormatMessage();
     }
 
     //Невалидный код CVV: ввод одной цифры
@@ -252,10 +255,10 @@ public class PaymentTest {
     void shouldPaymentCardInvalidCvv2() {
         var mainPage = new MainPage();
         CardsInfo card = new CardsInfo(
-                getApprovedCardNumber(), getMonth(10), getYear(1), getHolder(), getInvalidCvv2());
+                getApprovedCardNumber(), getMonth(7), getYear(1), getHolder(), getInvalidCvv2());
         var paymentPage = mainPage.payment();
         paymentPage.fillForm(card);
-        paymentPage.wrongTermMessage();
+        paymentPage.wrongFormatMessage();
     }
 
     //Невалидный код CVV: ввод трёх нулей
@@ -263,10 +266,10 @@ public class PaymentTest {
     void shouldPaymentCardInvalidCvvZero() {
         var mainPage = new MainPage();
         CardsInfo card = new CardsInfo(
-                getApprovedCardNumber(), getMonth(10), getYear(1), getHolder(), getInvalidCvvZero());
+                getApprovedCardNumber(), getMonth(7), getYear(1), getHolder(), getInvalidCvvZero());
         var paymentPage = mainPage.payment();
         paymentPage.fillForm(card);
-        paymentPage.wrongTermMessage();
+        paymentPage.wrongFormatMessage();
     }
 
     //Невалидный код CVV: пустое поле
@@ -274,7 +277,7 @@ public class PaymentTest {
     void shouldPaymentCardInvalidEmptyCvv() {
         var mainPage = new MainPage();
         CardsInfo card = new CardsInfo(
-                getApprovedCardNumber(), getMonth(10), getYear(1), getHolder(), null);
+                getApprovedCardNumber(), getMonth(7), getYear(1), getHolder(), null);
         var paymentPage = mainPage.payment();
         paymentPage.fillForm(card);
         paymentPage.shouldFillMessage();

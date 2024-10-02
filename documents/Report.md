@@ -9,15 +9,19 @@
 
 **При подключении к БД MySQL**
 
-![отчет в классе CreditTest](https://github.com/ElenaLilu/QA_Diploma_Imyarekova/assets/135029773/9de13e68-b9b5-4eaa-a162-6d851a4877ac)
+![отчёт 1](https://github.com/user-attachments/assets/01ba1c8b-9720-4fad-947e-02f78869c73c)
+
+1. **CreditTest**
 
 Успешных тестов: **15**
 Неуспешных тестов: **8**
+![отчет в классе CreditTest](https://github.com/user-attachments/assets/0d4f4e56-517e-4749-8b8a-edbe109aea62)
 
-![отчет в классе PaymentTest](https://github.com/ElenaLilu/QA_Diploma_Imyarekova/assets/135029773/a5943150-01be-408f-97fb-3fb57041f96e)
+2. **PaymentTest**
 
 Успешных тестов: **15**
 Неуспешных тестов: **8**
+![отчет в классе PaymentTest](https://github.com/user-attachments/assets/4786c326-5b4f-49e6-a9b3-057d8e5c88b1)
 
 ## Общие рекомендации
 * Устранить выявленные [ошибки](https://github.com/ElenaLilu/QA_Diploma_Imyarekova/issues).

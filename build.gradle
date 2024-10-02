@@ -30,7 +30,7 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
     testImplementation 'com.codeborne:selenide:6.17.1'
     testImplementation 'mysql:mysql-connector-java:8.0.33'
-    testImplementation 'postgresql:postgresql:9.3-1102.jdbc41'
+    testImplementation 'org.postgresql:postgresql:42.5.4'
     testImplementation 'commons-dbutils:commons-dbutils:1.7'
     testImplementation 'io.rest-assured:rest-assured:5.3.0'
     testImplementation 'io.qameta.allure:allure-selenide:2.21.0'
@@ -52,7 +52,7 @@ configurations {
     testCompile
 }
 
-// здесь для чего второй блок test?
+
 test {
     useJUnitPlatform()
     systemProperty 'selenide.headless', System.getProperty('selenide.headless')

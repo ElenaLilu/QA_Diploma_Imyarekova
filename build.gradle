@@ -51,5 +51,5 @@ test {
 test {
     useJUnitPlatform()
     systemProperty 'selenide.headless', System.getProperty('selenide.headless')
-    systemProperty 'datasource.url', System.getProperty('datasource.url', 'jdbc:postgresql://localhost:5432/postgresql')
+    systemProperty 'datasource.url', System.getProperty('datasource.url', 'jdbc:postgresql://localhost:5432/app')
 }

@@ -26,7 +26,7 @@
 7. Остановить контейнеры в терминале 1:`docker-compose down`
 
 ### Подключение SUT к PostgreSQL
-1. В терминале 3 запустить приложение: `java -jar artifacts/aqa-shop.jar --spring.datasource.url=jdbc:postgresql://localhost:5432/postgresql/app`
+1. В терминале 3 запустить приложение: `java -jar artifacts/aqa-shop.jar --spring.datasource.url=jdbc:postgresql://localhost:5432/postgresql`
 2. Проверить запуск приложение в браузере Chrome:http://localhost:8080
 3. В терминале 4 запустить тесты: `./gradlew clean test -Ddatasource.url=jdbc:postgresql://localhost:5432/postgresql`
 4. Создать отчёт Allure и открыть в браузере `.\gradlew allureServe`

@@ -49,18 +49,18 @@ public class CreditPage {
     }
 
     public void wrongFormatMessage() {
-        wrongFormat.shouldBe(visible, Duration.ofSeconds(15));
+        wrongFormat.shouldBe(visible);
     }
 
     public void wrongTermMessage() {
-        wrongTerm.shouldBe(visible, Duration.ofSeconds(15));
+        wrongTerm.shouldBe(visible);
     }
 
     public void cardExpiredMessage() {
-        cardExpired.shouldBe(visible, Duration.ofSeconds(15));
+        cardExpired.shouldBe(visible);
     }
 
     public void shouldFillMessage() {
-        requiredField.shouldBe(visible, Duration.ofSeconds(15));
+        requiredField.shouldBe(visible);
     }
 }

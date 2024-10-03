@@ -8,7 +8,7 @@ import java.sql.DriverManager;
 import java.sql.Connection;
 public class DbUtils {
     private static String url = System.getProperty("datasource.url");
-    private static String user = "app"; // что за странные данные?
+    private static String user = "app";
     private static String password = "pass";
 
     @SneakyThrows

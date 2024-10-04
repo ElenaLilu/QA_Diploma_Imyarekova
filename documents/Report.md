@@ -10,10 +10,11 @@
 
 **При подключении к БД MySQL**
 
-![отчёт 1](https://github.com/user-attachments/assets/01ba1c8b-9720-4fad-947e-02f78869c73c)
+![отчёт mysql](https://github.com/user-attachments/assets/21509fc5-f5f0-4589-8306-2ed39365bee9)
 
-Успешных тестов: **30**
+Успешных тестов: **28**
 Неуспешных тестов: **16**
+Обрушившееся тесты: **4**
 
 **При подключении к БД PostgreSQL**
 

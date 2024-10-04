@@ -2,6 +2,7 @@
 ## Краткое описание
 Выполнено автоматизированное тестирование веб-сервиса покупки тура "Путешествие дня", взаимодействующего с СУБД и API Банка. Заявлена поддержка базы данных:
 * MySQL
+* PostgreSQL
 
 Общее количество тест-кейсов: **46**
 
@@ -11,17 +12,17 @@
 
 ![отчёт 1](https://github.com/user-attachments/assets/01ba1c8b-9720-4fad-947e-02f78869c73c)
 
-1. **CreditTest**
+Успешных тестов: **30**
+Неуспешных тестов: **16**
 
-Успешных тестов: **15**
-Неуспешных тестов: **8**
-![отчет в классе CreditTest](https://github.com/user-attachments/assets/0d4f4e56-517e-4749-8b8a-edbe109aea62)
+**При подключении к БД PostgreSQL**
 
-2. **PaymentTest**
+![отчёт postgree](https://github.com/user-attachments/assets/1b8142d9-ac2a-487a-bfeb-e0ebc954282f)
 
-Успешных тестов: **15**
-Неуспешных тестов: **8**
-![отчет в классе PaymentTest](https://github.com/user-attachments/assets/4786c326-5b4f-49e6-a9b3-057d8e5c88b1)
+Успешных тестов: **27**
+Неуспешных тестов: **17**
+Обрушившееся тесты: **2**
+
 
 ## Общие рекомендации
 * Устранить выявленные [ошибки](https://github.com/ElenaLilu/QA_Diploma_Imyarekova/issues).
